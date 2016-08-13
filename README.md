@@ -7,8 +7,8 @@ If you ever need an easy way to download all the images off from a given url. Yo
 
 ## Requirements
 
-- PhantomJS or SlimerJS
-- CasperJS
+- [PhantomJS](http://phantomjs.org/) or [SlimerJS](https://slimerjs.org/)
+- [CasperJS](http://casperjs.org/)
 
 ## Installation
 
@@ -29,3 +29,7 @@ Or, to enable debugging mode
 ```
 casperjs getImages.js http://www.example.com --g
 ```
+
+## License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
