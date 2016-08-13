@@ -30,6 +30,10 @@ Or, to enable debugging mode
 casperjs getImages.js http://www.example.com --g
 ```
 
+## Demo
+
+![Loading the first image](demo.PNG)
+
 ## License
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
