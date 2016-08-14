@@ -5,6 +5,7 @@ var casper = require('casper').create({
 		webSecurityEnabled: false
 	}
 });
+var fs = require('fs');
 var images = [];
 var sourcePage;
 
@@ -32,12 +33,13 @@ function getAllTheImagesTag() {
 		var isJpg = new RegExp('jpg$');
 		var isJpeg = new RegExp('jpeg$');
 		var isGif = new RegExp('gif$');
+		var isSvg = new RegExp('svg$');
 		
 		if (el.hasAttribute('src') || el.hasAttribute('file')) {
 			var imgUrl = el.getAttribute('src') == null? el.getAttribute('file').split('?')[0]: el.getAttribute('src').split('?')[0];
 
 			imgUrl = imgUrl.indexOf('//') == 0? 'http:' + imgUrl: imgUrl;
-			if (isPng.test(imgUrl) || isJpg.test(imgUrl) || isJpeg.test(imgUrl) || isGif.test(imgUrl)) {
+			if (isPng.test(imgUrl) || isJpg.test(imgUrl) || isJpeg.test(imgUrl) || isGif.test(imgUrl) || isSvg.test(imgUrl)) {
 				if (uniqueLinks.indexOf(imgUrl) == -1) {
 					uniqueLinks.push(imgUrl);
 					results.push({url: imgUrl});
@@ -48,12 +50,18 @@ function getAllTheImagesTag() {
 	return results;
 }
 
+function outputDownloadProgress(index, numberOfImages, imgName) {
+	console.log("Downloading " + index + " out of " + numberOfImages +  " image(s).");
+	console.log("\t" + imgName);
+}
+
 casper.start(sourcePage, function(){
 	images = this.evaluate(getAllTheImagesTag);
 });
 
 casper.waitForUrl(sourcePage, function() {
 	var numberOfImages = images.length;
+	var count = 0;
 
 	this.echo("Begin to download all the images...");
 	this.echo("There are in total of " + numberOfImages + " image(s).");
@@ -62,10 +70,17 @@ casper.waitForUrl(sourcePage, function() {
 		var imgUrl = currentValue.url;
 		var splittedImageUrl = imgUrl.split('/');
 		var imgName = splittedImageUrl[splittedImageUrl.length-1];
+		var pathToImage = folderPath + imgName;
 
-		casper.download(imgUrl, folderPath + imgName);
-		console.log("Downloading " + (index+1) + " out of " + numberOfImages +  " image(s).");
-		console.log("\t" + imgName);
+		casper.download(imgUrl, pathToImage);
+		if(fs.isFile(pathToImage) && fs.size(pathToImage) == 0) {
+			casper.thenOpen(imgUrl, function(resourse) {
+				casper.download(resourse.url, pathToImage);
+				outputDownloadProgress(++count, numberOfImages, imgName);
+			});
+		}else{
+			outputDownloadProgress(++count, numberOfImages, imgName);
+		}
 	});
 });
 
