@@ -6,13 +6,14 @@ var casper = require('casper').create({
 	}
 });
 var fs = require('fs');
+var validUrl = require('valid-url');
 var images = [];
 var sourcePage;
 
 if (casper.cli.has(0)) {
-	sourcePage = casper.cli.get(0);
-	if (sourcePage.indexOf('http://') == -1 && sourcePage.indexOf('https://') == -1) {
-		casper.echo("url should starts with http:// or https://, aborting...").exit();
+	sourcePage = casper.cli.get(0).toLowerCase();
+	if (!validUrl.isUri(sourcePage)) {
+		casper.echo("Please provide a valid url, for example, http://www.example.com, aborting...").exit();
 	}else{
 		if (casper.cli.get('g')) {
 			casper.options.verbose = true;
@@ -28,7 +29,7 @@ function getAllTheImagesTag() {
 	var results = [];
 	var uniqueLinks = [];
 	
-	Array.prototype.forEach.call(els, function(el){
+	Array.prototype.forEach.call(els, function (el){
 		var isPng = new RegExp('png$');
 		var isJpg = new RegExp('jpg$');
 		var isJpeg = new RegExp('jpeg$');
@@ -39,6 +40,7 @@ function getAllTheImagesTag() {
 			var imgUrl = el.getAttribute('src') == null? el.getAttribute('file').split('?')[0]: el.getAttribute('src').split('?')[0];
 
 			imgUrl = imgUrl.indexOf('//') == 0? 'http:' + imgUrl: imgUrl;
+			imgUrl = imgUrl.trim();
 			if (isPng.test(imgUrl) || isJpg.test(imgUrl) || isJpeg.test(imgUrl) || isGif.test(imgUrl) || isSvg.test(imgUrl)) {
 				if (uniqueLinks.indexOf(imgUrl) == -1) {
 					uniqueLinks.push(imgUrl);
@@ -55,11 +57,24 @@ function outputDownloadProgress(index, numberOfImages, imgName) {
 	console.log("\t" + imgName);
 }
 
-casper.start(sourcePage, function(){
+function downloadTheImage (casper, imgUrl, folderPath, imgName) {
+
+	var pathToImage = folderPath + imgName;
+
+	if (fs.exists(pathToImage)) {
+		pathToImage = folderPath + Math.random().toString(36).substring(7)+ imgName;
+		casper.download(imgUrl, pathToImage);
+	}else{
+		pathToImage = folderPath + imgName;
+		casper.download(imgUrl, pathToImage);
+	}
+}
+
+casper.start(sourcePage, function (){
 	images = this.evaluate(getAllTheImagesTag);
 });
 
-casper.waitForUrl(sourcePage, function() {
+casper.waitForUrl(sourcePage, function () {
 	var numberOfImages = images.length;
 	var count = 0;
 
@@ -72,10 +87,10 @@ casper.waitForUrl(sourcePage, function() {
 		var imgName = splittedImageUrl[splittedImageUrl.length-1];
 		var pathToImage = folderPath + imgName;
 
-		casper.download(imgUrl, pathToImage);
-		if(fs.isFile(pathToImage) && fs.size(pathToImage) == 0) {
-			casper.thenOpen(imgUrl, function(resourse) {
-				casper.download(resourse.url, pathToImage);
+		downloadTheImage(casper, imgUrl, folderPath, imgName);
+		if (fs.isFile(pathToImage) && fs.size(pathToImage) == 0) {
+			casper.thenOpen(imgUrl, function (resourse) {
+				downloadTheImage(casper, resourse.url, folderPath, imgName);
 				outputDownloadProgress(++count, numberOfImages, imgName);
 			});
 		}else{
@@ -84,7 +99,7 @@ casper.waitForUrl(sourcePage, function() {
 	});
 });
 
-casper.run(function() {
+casper.run(function () {
 	console.log("Finished downloading " + images.length + " image(s).");
 	console.log("Exiting now...");
 	this.exit();
