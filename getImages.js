@@ -89,6 +89,7 @@ casper.waitForUrl(sourcePage, function () {
 
 		downloadTheImage(casper, imgUrl, folderPath, imgName);
 		if (fs.isFile(pathToImage) && fs.size(pathToImage) == 0) {
+			fs.remove(pathToImage);
 			casper.thenOpen(imgUrl, function (resourse) {
 				downloadTheImage(casper, resourse.url, folderPath, imgName);
 				outputDownloadProgress(++count, numberOfImages, imgName);

@@ -1,3 +1,8 @@
+v1.0.3
+======
+
+* For site that has redirected image link may lead to bunch of file(s) stored in the directory with no use. Now, they will be removed if the file size is 0.
+
 v1.0.2
 ======
 
