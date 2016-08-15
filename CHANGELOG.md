@@ -1,22 +1,22 @@
-v1.0.3
+v1.0.3 (2016-08-14)
 ======
 
 * For site that has redirected image link may lead to bunch of file(s) stored in the directory with no use. Now, they will be removed if the file size is 0.
 
-v1.0.2
+v1.0.2 (2016-08-14)
 ======
 
 * Before the url gets check, we converts it to lowercase letters.
 * When we get the image url from the image tag, we removes the whitespace from both sides of the url before we continue.
 * For some website like https://www.youtube.com, most of their images has the exact same name. In order to download those images, we append random characters in the front of the file name.
 
-v1.0.1
+v1.0.1 (2016-08-13)
 ======
 
 * Now, the image file format svg is supported.
 * As more and more web static assets go on to the CDN, many of the image url gets redirect to different url based on their physical location. The script is now has the ability to download the image off from the redirected link.
 
-v1.0.0
+v1.0.0 (2016-08-13)
 ======
 
 * Check if there is a given url.
