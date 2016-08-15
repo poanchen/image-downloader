@@ -5,10 +5,6 @@ v1.0.2
 * When we get the image url from the image tag, we removes the whitespace from both sides of the url before we continue.
 * For some website like https://www.youtube.com, most of their images has the exact same name. In order to download those images, we append random characters in the front of the file name.
 
-removes 
-* Now, the image file format svg is supported.
-* As more and more web static assets go on to the CDN, many of the image url gets redirect to different url based on their physical location. The script is now has the ability to download the image off from the redirected link.
-
 v1.0.1
 ======
 
