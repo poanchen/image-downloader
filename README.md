@@ -12,22 +12,10 @@ If you ever need an easy way to download all the images off from a given url. Yo
 
 ## Installation
 
-Please make sure you have PhantomJS or SlimerJS with CasperJS ready, then you may continue. (You may run these commands to check if you have PhantomJS or SlimerJS or CasperJS installed)
-
-```
-casperjs --version
-phantomjs --version
-```
-
-Run the following command to get the latest copy of getImages.js,
+Once you have PhantomJS or SlimerJS with CasperJS ready, run the following commands to get the getImages.js working,
 
 ```
 git clone https://github.com/poanchen/image-downloader.git
-```
-
-Then,
-
-```
 cd image-downloader
 npm install
 ```
