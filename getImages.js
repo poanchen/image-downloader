@@ -30,15 +30,16 @@ function getAllTheImagesTag() {
 	var uniqueLinks = [];
 
 	Array.prototype.forEach.call(els, function (el){
-		var isPng = new RegExp('png$');
-		var isJpg = new RegExp('jpg$');
-		var isJpeg = new RegExp('jpeg$');
-		var isGif = new RegExp('gif$');
-		var isSvg = new RegExp('svg$');
+		var isPng = new RegExp('png$', 'i');
+		var isJpg = new RegExp('jpg$', 'i');
+		var isJpeg = new RegExp('jpeg$', 'i');
+		var isGif = new RegExp('gif$', 'i');
+		var isSvg = new RegExp('svg$', 'i');
 
-		if (el.hasAttribute('src') || el.hasAttribute('file')) {
-			var imgUrl = el.getAttribute('src') == null? el.getAttribute('file').split('?')[0]: el.getAttribute('src').split('?')[0];
+		if (el.hasAttribute('src') || el.hasAttribute('data-src') || el.hasAttribute('file')) {
+			var imgUrl = el.getAttribute('src') == null? el.getAttribute('data-src').split('?')[0]: el.getAttribute('src').split('?')[0];
 
+			imgUrl = imgUrl == null? el.getAttribute('file').split('?')[0]: imgUrl;
 			imgUrl = imgUrl.indexOf('//') == 0? 'http:' + imgUrl: imgUrl;
 			imgUrl = imgUrl.trim();
 			if (isPng.test(imgUrl) || isJpg.test(imgUrl) || isJpeg.test(imgUrl) || isGif.test(imgUrl) || isSvg.test(imgUrl)) {

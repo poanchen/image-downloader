@@ -1,3 +1,10 @@
+v1.0.5 (2016-08-17)
+======
+
+* We realized that some image has .PNG extension instead of .png, as a result, we ignore the character cases when comparing.
+* Some site, instead of using <img src="" or <img file="", they use <img data-src="", then we need to modify the script to accommodate it, so that we can also download images off from their site.
+* Notice that, we first check if image tag has attribute src, then data-src, then file. Hence, if the image has attribute src with some value, then we will be ignoring the contents of data-src and file.
+
 v1.0.4 (2016-08-16)
 ======
 
