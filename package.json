@@ -1,6 +1,6 @@
 {
   "name": "image-downloader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Downloading images off from a given url using a CasperJS-powered script onto the local filesystem.",
   "main": "getImages.js",
   "scripts": {

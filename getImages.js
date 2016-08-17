@@ -7,8 +7,8 @@ var casper = require('casper').create({
 });
 var fs = require('fs');
 var validUrl = require('valid-url');
-var images = [];
 var sourcePage;
+var images = [];
 
 if (casper.cli.has(0)) {
 	sourcePage = casper.cli.get(0).toLowerCase();
@@ -28,14 +28,14 @@ function getAllTheImagesTag() {
 	var els = document.querySelectorAll('img');
 	var results = [];
 	var uniqueLinks = [];
-	
+
 	Array.prototype.forEach.call(els, function (el){
 		var isPng = new RegExp('png$');
 		var isJpg = new RegExp('jpg$');
 		var isJpeg = new RegExp('jpeg$');
 		var isGif = new RegExp('gif$');
 		var isSvg = new RegExp('svg$');
-		
+
 		if (el.hasAttribute('src') || el.hasAttribute('file')) {
 			var imgUrl = el.getAttribute('src') == null? el.getAttribute('file').split('?')[0]: el.getAttribute('src').split('?')[0];
 
@@ -58,7 +58,6 @@ function outputDownloadProgress(index, numberOfImages, imgName) {
 }
 
 function downloadTheImage (casper, imgUrl, folderPath, imgName) {
-
 	var pathToImage = folderPath + imgName;
 
 	if (fs.exists(pathToImage)) {
@@ -70,13 +69,18 @@ function downloadTheImage (casper, imgUrl, folderPath, imgName) {
 	}
 }
 
-casper.start(sourcePage, function (){
-	images = this.evaluate(getAllTheImagesTag);
+casper.start(sourcePage);
+
+casper.on('load.failed', function (status) {
+	this.echo(status.url + " failed to load, aborting... ").exit();
 });
 
-casper.waitForUrl(sourcePage, function () {
-	var numberOfImages = images.length;
+casper.then(function (res){
+	images = this.evaluate(getAllTheImagesTag);
+
 	var count = 0;
+	var numberOfImages = images.length;
+	sourcePage = res.url.split('?')[0];
 
 	this.echo("Begin to download all the images...");
 	this.echo("There are in total of " + numberOfImages + " image(s).");

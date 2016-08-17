@@ -1,3 +1,9 @@
+v1.0.4 (2016-08-16)
+======
+
+* Now, the initial url accepts link that will get redirect. For example, say a person physically located in Canada, he put www.google.com as the initial url, of course google will redirect the person to the google.ca. As a result, the person will end up downloading images for google.ca.
+* We added the fallback that exit the program when url request is timeout. (Default, 5 seconds)
+
 v1.0.3 (2016-08-14)
 ======
 
