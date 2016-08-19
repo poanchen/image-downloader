@@ -24,12 +24,12 @@ if (casper.cli.has(0)) {
 	casper.echo("No url passed, aborting...").exit();
 }
 
-function getAllTheImagesTag() {
+function getAllTheImagesTag () {
 	var els = document.querySelectorAll('img');
 	var results = [];
 	var uniqueLinks = [];
 
-	Array.prototype.forEach.call(els, function (el){
+	Array.prototype.forEach.call(els, function (el) {
 		var isPng = new RegExp('png$', 'i');
 		var isJpg = new RegExp('jpg$', 'i');
 		var isJpeg = new RegExp('jpeg$', 'i');
@@ -53,7 +53,7 @@ function getAllTheImagesTag() {
 	return results;
 }
 
-function outputDownloadProgress(index, numberOfImages, imgName) {
+function outputDownloadProgress (index, numberOfImages, imgName) {
 	console.log("Downloading " + index + " out of " + numberOfImages +  " image(s).");
 	console.log("\t" + imgName);
 }
@@ -76,7 +76,7 @@ casper.on('load.failed', function (status) {
 	this.echo(status.url + " failed to load, aborting... ").exit();
 });
 
-casper.then(function (res){
+casper.then(function (res) {
 	images = this.evaluate(getAllTheImagesTag);
 
 	var count = 0;
