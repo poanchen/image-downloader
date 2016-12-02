@@ -32,6 +32,7 @@ Or, to enable debugging mode
 casperjs getImages.js http://www.example.com --g
 ```
 
-## Screenshots
+## Demo
 
+![Loading the first image](demo.gif)
 ![Loading the first image](demo.PNG)
