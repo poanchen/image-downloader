@@ -1,4 +1,4 @@
-# image-downloader
+# image-downloader v1.0.5
 Downloading images off from a given url using a CasperJS-powered script onto the local filesystem.
 
 ## Why is this useful?
