@@ -7,7 +7,7 @@ If you ever need an easy way to download all the images off from a given url. Yo
 
 ## Requirements
 
-- [PhantomJS](http://phantomjs.org/) or [SlimerJS](https://slimerjs.org/)
+- [PhantomJS](http://phantomjs.org/)
 - [CasperJS](http://casperjs.org/)
 
 ## Installation
