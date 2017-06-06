@@ -5,14 +5,11 @@ Downloading images off from a given url using a CasperJS-powered script onto the
 
 If you ever need an easy way to download all the images off from a given url. You are in luck. This can be as easy as it seems.
 
-## Requirements
-
-- [PhantomJS](http://phantomjs.org/)
-- [CasperJS](http://casperjs.org/)
-
 ## Installation
 
-Once you have PhantomJS or SlimerJS with CasperJS ready, run the following commands to get the getImages.js working,
+CasperJS can be installed on Mac OSX, Windows and most Linuxes. Please head over [here](http://docs.casperjs.org/en/latest/installation.html) to install CasperJS. The source code are provided in two format (zip and tar.gz), please download the [files](https://github.com/poanchen/image-downloader/releases) to your computer to start downloading images off from almost any site easily.
+
+Run the following commands to get the getImages.js working,
 
 ```
 git clone https://github.com/poanchen/image-downloader.git
