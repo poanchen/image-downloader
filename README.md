@@ -1,9 +1,9 @@
 # image-downloader v1.0.5
-Downloading images off from a given url using a CasperJS-powered script onto the local filesystem.
+Save and download all favorite images from website in an easy way.
 
 ## Why is this useful?
 
-If you ever need an easy way to download all the images off from a given url. You are in luck. This can be as easy as it seems.
+Right Click to save an image is no longer needed. You will be able to download/save all images from almost any website in an easy way.
 
 ## Installation
 
