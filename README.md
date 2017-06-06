@@ -20,6 +20,10 @@ cd image-downloader
 npm install
 ```
 
+## Environment
+
+Tested on both Windows 10 and OS X 10.11 El Capitan.
+
 ## Usage
 
 ```
