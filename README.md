@@ -5,6 +5,8 @@ Save and download all favorite images from website in an easy way.
 
 Right Click to save an image is no longer needed. You will be able to download/save all images from almost any website in an easy way.
 
+# Getting Started
+
 ## Installation
 
 CasperJS can be installed on Mac OSX, Windows and most Linuxes. Please head over [here](http://docs.casperjs.org/en/latest/installation.html) to install CasperJS. The source code are provided in two format (zip and tar.gz), please download the [files](https://github.com/poanchen/image-downloader/releases) to your computer to start downloading images off from almost any site easily.
